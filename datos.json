@@ -1,0 +1,67 @@
+{
+    "miembros": {
+        "Pablo": "1234",
+        "1": "1",
+        "fff": "132",
+        "Alberto": "1",
+        "Caracoles": "q",
+        "Ana": "Ana",
+        "123": "123"
+    },
+    "libros": {
+        "1": [
+            {
+                "titulo": "Drácula",
+                "sinopsis": "En un futuro donde la memoria humana puede almacenarse y reproducirse como archivos digitales, Lía, una archivista emocional, descubre un recuerdo prohibido que no debería existir. Al intentar borrar la evidencia, se ve envuelta en una red de secretos que conecta a la élite tecnológica con un antiguo proyecto clandestino. Mientras la línea entre recuerdos reales e implantados comienza a desdibujarse, Lía deberá decidir qué es verdad, en quién confiar y hasta dónde está dispuesta a llegar para proteger aquello que ama.",
+                "imagen": "uploads\/img_6925dd939d8cb2.78096517.jpg"
+            },
+            {
+                "titulo": "To Loco",
+                "sinopsis": "En un futuro donde la memoria humana puede almacenarse y reproducirse como archivos digitales, Lía, una archivista emocional, descubre un recuerdo prohibido que no debería existir. Al intentar borrar la evidencia, se ve envuelta en una red de secretos que conecta a la élite tecnológica con un antiguo proyecto clandestino. Mientras la línea entre recuerdos reales e implantados comienza a desdibujarse, Lía deberá decidir qué es verdad, en quién confiar y hasta dónde está dispuesta a llegar para proteger aquello que ama.",
+                "imagen": "uploads\/img_6925dd9c728d14.16271643.webp"
+            },
+            {
+                "titulo": "Winter is Coming",
+                "sinopsis": "En un futuro donde la memoria humana puede almacenarse y reproducirse como archivos digitales, Lía, una archivista emocional, descubre un recuerdo prohibido que no debería existir. Al intentar borrar la evidencia, se ve envuelta en una red de secretos que conecta a la élite tecnológica con un antiguo proyecto clandestino. Mientras la línea entre recuerdos reales e implantados comienza a desdibujarse, Lía deberá decidir qué es verdad, en quién confiar y hasta dónde está dispuesta a llegar para proteger aquello que ama.",
+                "imagen": "uploads\/img_6925dda2bb7521.43901156.webp"
+            }
+        ],
+        "Pablo": [
+            {
+                "titulo": "Muyayo man",
+                "sinopsis": "En un futuro donde la memoria humana puede almacenarse y reproducirse como archivos digitales, Lía, una archivista emocional, descubre un recuerdo prohibido que no debería existir. Al intentar borrar la evidencia, se ve envuelta en una red de secretos que conecta a la élite tecnológica con un antiguo proyecto clandestino. Mientras la línea entre recuerdos reales e implantados comienza a desdibujarse, Lía deberá decidir qué es verdad, en quién confiar y hasta dónde está dispuesta a llegar para proteger aquello que ama.",
+                "imagen": "uploads\/img_6925df806520c4.97084319.jpg"
+            },
+            {
+                "titulo": "Ventanuco el cuco",
+                "sinopsis": "En un futuro donde la memoria humana puede almacenarse y reproducirse como archivos digitales, Lía, una archivista emocional, descubre un recuerdo prohibido que no debería existir. Al intentar borrar la evidencia, se ve envuelta en una red de secretos que conecta a la élite tecnológica con un antiguo proyecto clandestino. Mientras la línea entre recuerdos reales e implantados comienza a desdibujarse, Lía deberá decidir qué es verdad, en quién confiar y hasta dónde está dispuesta a llegar para proteger aquello que ama.",
+                "imagen": "uploads\/img_6925df918a8437.22427854.jpeg"
+            }
+        ],
+        "Alberto": [
+            {
+                "titulo": "El pinar",
+                "sinopsis": "En un futuro donde la memoria humana puede almacenarse y reproducirse como archivos digitales, Lía, una archivista emocional, descubre un recuerdo prohibido que no debería existir. Al intentar borrar la evidencia, se ve envuelta en una red de secretos que conecta a la élite tecnológica con un antiguo proyecto clandestino. Mientras la línea entre recuerdos reales e implantados comienza a desdibujarse, Lía deberá decidir qué es verdad, en quién confiar y hasta dónde está dispuesta a llegar para proteger aquello que ama.a",
+                "imagen": "uploads\/img_6925e0e0574b83.54078981.webp"
+            },
+            {
+                "titulo": "biribiri",
+                "sinopsis": "burubruuEn un futuro donde la memoria humana puede almacenarse y reproducirse como archivos digitales, Lía, una archivista emocional, descubre un recuerdo prohibido que no debería existir. Al intentar borrar la evidencia, se ve envuelta en una red de secretos que conecta a la élite tecnológica con un antiguo proyecto clandestino. Mientras la línea entre recuerdos reales e implantados comienza a desdibujarse, Lía deberá decidir qué es verdad, en quién confiar y hasta dónde está dispuesta a llegar para proteger aquello que ama.",
+                "imagen": "uploads\/img_6925e0ee9b5d80.61264587.jpg"
+            }
+        ],
+        "Ana": [
+            {
+                "titulo": "Ana",
+                "sinopsis": "En un futuro donde la memoria humana puede almacenarse y reproducirse como archivos digitales, Lía, una archivista emocional, descubre un recuerdo prohibido que no debería existir. Al intentar borrar la evidencia, se ve envuelta en una red de secretos que conecta a la élite tecnológica con un antiguo proyecto clandestino. Mientras la línea entre recuerdos reales e implantados comienza a desdibujarse, Lía deberá decidir qué es verdad, en quién confiar y hasta dónde está dispuesta a llegar para proteger aquello que ama.\r\nsdasd\r\nasda\r\nsda\r\nsda\r\nsda\r\nsda\r\nsdasd\r\nasda\r\nsdasd\r\nasda\r\nd\r\na",
+                "imagen": "uploads\/img_6925df4deaabe5.46608676.webp"
+            },
+            {
+                "titulo": "sdasdasda",
+                "sinopsis": "En un futuro donde la memoria humana puede almacenarse y reproducirse como archivos digitales, Lía, una archivista emocional, descubre un recuerdo prohibido que no debería existir. Al intentar borrar la evidencia, se ve envuelta en una red de secretos que conecta a la élite tecnológica con un antiguo proyecto clandestino. Mientras la línea entre recuerdos reales e implantados comienza a desdibujarse, Lía deberá decidir qué es verdad, en quién confiar y hasta dónde está dispuesta a llegar para proteger aquello que ama.klsdfjsklfj as´fkljs fsdopf jsdfkl jadg df gdfgdf\r\ngdfg d\r\nf gdf gdg dfgh adfgdfdf dgdfgd dagdfgdfhrghsdcvh \r\nad gdagh adf adfhadf asgscf sad dfah",
+                "imagen": "uploads\/img_6925df57e2f3a6.00761594.webp"
+            }
+        ],
+        "123": []
+    }
+}
