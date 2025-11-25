@@ -18,8 +18,14 @@
                         libros</a>
                     <a href="logout.php" style="color:#fff; text-decoration:none; display:block; margin:5px 0;">Cerrar
                         sesión</a>
+                    <?php if ($_SESSION['usuario'] === 'admin'): ?>
+                        <a href="admin_panel.php" style="color:#fff; text-decoration:none; display:block; margin:5px 0;">
+                            👥 Usuarios y libros
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
+
             <script>
                 const span = document.querySelector('header span');
                 const dropdown = document.getElementById('dropdown');
