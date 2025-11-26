@@ -12,15 +12,16 @@
         <?php if (isset($_SESSION['usuario'])): ?>
             <div style="position:relative; display:inline-block;">
                 <span style="cursor:pointer;"><?php echo htmlspecialchars($_SESSION['usuario']); ?> ⌄</span>
-                <div style="display:none; position:absolute; right:0; background:#333; padding:10px; border-radius:4px;"
-                    id="dropdown">
+                <div style=" text-align: center;
+    width: 240%;
+    display:none; position:absolute; right:0; background:#333; padding:10px; border-radius:4px;" id="dropdown">
                     <a href="bienvenido.php" style="color:#fff; text-decoration:none; display:block; margin:5px 0;">Mis
                         libros</a>
                     <a href="logout.php" style="color:#fff; text-decoration:none; display:block; margin:5px 0;">Cerrar
                         sesión</a>
                     <?php if ($_SESSION['usuario'] === 'admin'): ?>
                         <a href="admin_panel.php" style="color:#fff; text-decoration:none; display:block; margin:5px 0;">
-                            👥 Usuarios y libros
+                            Panel de control
                         </a>
                     <?php endif; ?>
                 </div>
