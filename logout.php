@@ -1,10 +1,8 @@
 <?php
 session_start();
 
-// Elimina solo la variable del usuario actual
-unset($_SESSION["usuario"]);
+session_unset();   // Borra TODAS las variables de sesión
+session_destroy(); // Destruye la sesión por completo
 
-// Redirige al login
-header("Location: index.php");
+header("Location: login.php");
 exit();
-?>

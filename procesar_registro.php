@@ -1,27 +1,42 @@
 <?php
 session_start();
 
-$usuario = trim($_POST['username'] ?? '');
+$nombre  = trim($_POST['nombre'] ?? '');
 $password = trim($_POST['password'] ?? '');
+$email    = trim($_POST['email'] ?? '');
 
-if ($usuario !== "" && $password !== "") {
-    // Recuperar lista de miembros
-    $miembros = $_SESSION['miembros'] ?? [];
+if ($nombre !== "" && $password !== "" && $email !== "") {
 
-    // Comprobar si el usuario ya existe
-    if (array_key_exists($usuario, $miembros)) {
-        header("Location: registro.php?error=Usuario ya existe");
-        exit();
-    } else {
-        // Guardar nuevo usuario
-        $miembros[$usuario] = $password;
-        $_SESSION['miembros'] = $miembros;
+    require_once "config.php";
+    require_once __DIR__ . "/includes/functions.php";
 
-        // Redirigir al login
-        header("Location: login.php?success=Usuario registrado");
+    // Conectar a la base de datos
+    $conn = conectarBaseDatos();
+
+    // Encriptar contraseña
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    try {
+        // Insertar usuario
+        $sql = "INSERT INTO usuario (nombre, password, email) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $nombre, $passwordHash, $email);
+
+        if ($stmt->execute()) {
+            $_SESSION["msg"] = "Usuario creado correctamente";
+            header("Location: login.php");
+            exit();
+        } else {
+            $_SESSION["msg"] = "Error creando al usuario";
+            header("Location: registro.php");
+            exit();
+        }
+    } catch (Exception $e) {
+        $_SESSION["msg"] = "Error creando al usuario " . $e->getMessage();
+        header("Location: registro.php");
         exit();
     }
 } else {
-    header("Location: registro.php?error=Por favor complete todos los campos");
+    $_SESSION["msg"] = "Necesario cubrir todos los campos";
+    header("Location: registro.php");
     exit();
 }

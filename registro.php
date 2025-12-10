@@ -17,14 +17,26 @@
             <div class="card form-card">
                 <h1>Registro de Usuario</h1>
                 <form action="procesar_registro.php" method="post">
-                    <label for="username">Nombre de Usuario:</label>
-                    <input type="text" id="username" name="username" placeholder="Nombre de usuario" required>
+
+                    <label for="nombre">Nombre de Usuario:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre de usuario" required>
 
                     <label for="password">Contraseña:</label>
                     <input type="password" id="password" name="password" placeholder="Contraseña" required>
 
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+
+
                     <button type="submit">Registrarse</button>
                 </form>
+                <?php 
+                session_start();
+                if (isset($_SESSION['msg'])) {
+                    $msg = $_SESSION['msg'];
+                    echo "<p> $msg </p>";
+                }
+                ?>
                 <p style="text-align:center; margin-top:10px;">
                     ¿Ya tienes cuenta? <a href="login.php">Iniciar sesión</a>
                 </p>
