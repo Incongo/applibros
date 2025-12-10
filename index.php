@@ -55,14 +55,6 @@ if (isset($_SESSION['libros'])) {
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
-        <div style="text-align:center; margin:20px;">
-            <form action="guardar_json.php" method="post" style="display:inline;">
-                <button type="submit">💾 Guardar datos</button>
-            </form>
-            <form action="cargar_json.php" method="post" style="display:inline;">
-                <button type="submit">📂 Cargar datos</button>
-            </form>
-        </div>
 
         <?php if (isset($_GET['msg'])): ?>
             <p style="text-align:center; color:green;">
