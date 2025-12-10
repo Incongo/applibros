@@ -1,16 +1,23 @@
 <?php
 session_start();
 
+require_once "config.php";
+require_once __DIR__ . "/includes/functions.php";
 
+$conn = conectarBaseDatos();
 
-// Recoger todos los libros de todos los usuarios
+// Obtener todos los libros con el nombre del usuario dueño
+$sql = "SELECT libro.libro_id, libro.titulo, libro.sinopsis, libro.autor, libro.imagen,
+               usuario.nombre AS usuario_nombre
+        FROM libro
+        INNER JOIN usuario ON libro.usuario_id = usuario.usuario_id
+        ORDER BY libro.libro_id DESC";
+
+$resultado = $conn->query($sql);
+
 $librosGlobales = [];
-if (isset($_SESSION['libros'])) {
-    foreach ($_SESSION['libros'] as $usuario => $lista) {
-        foreach ($lista as $libro) {
-            $librosGlobales[] = ["usuario" => $usuario] + $libro;
-        }
-    }
+while ($fila = $resultado->fetch_assoc()) {
+    $librosGlobales[] = $fila;
 }
 ?>
 <!DOCTYPE html>
@@ -31,7 +38,6 @@ if (isset($_SESSION['libros'])) {
         <br><br>
         <h2 class="h2index">📚 Nuestros libros 📚</h2>
 
-
         <p>Explora nuestra amplia selección de libros y encuentra tu próxima lectura favorita.</p>
         <br><br>
 
@@ -39,53 +45,25 @@ if (isset($_SESSION['libros'])) {
             <p style="text-align:center;">Todavía no hay libros registrados.</p>
         <?php else: ?>
             <div class="galeria">
-                <?php foreach ($librosGlobales as $i => $libro): ?>
+                <?php foreach ($librosGlobales as $libro): ?>
                     <div class="card">
+
                         <?php if (!empty($libro["imagen"]) && file_exists($libro["imagen"])): ?>
-                            <img src="<?php echo htmlspecialchars($libro["imagen"]); ?>" alt="Portada">
+                            <img src="<?php echo htmlspecialchars($libro["imagen"]); ?>" alt="Portada" class="img-libro">
                         <?php else: ?>
-                            <img src="img/default.jpg" alt="Sin imagen">
+                            <img src="img/default.jpg" alt="Sin imagen" class="img-libro">
                         <?php endif; ?>
+
                         <div class="card-content">
                             <h3><?php echo htmlspecialchars($libro["titulo"]); ?></h3>
-                            <p><?php echo nl2br(htmlspecialchars($libro["sinopsis"] ?? "")); ?></p>
-                            <small>Por: <?php echo htmlspecialchars($libro["usuario"]); ?></small>
+                            <p><strong>Autor:</strong> <?php echo htmlspecialchars($libro["autor"]); ?></p>
+                            <p><?php echo nl2br(htmlspecialchars($libro["sinopsis"])); ?></p>
+                            <small>Subido por: <?php echo htmlspecialchars($libro["usuario_nombre"]); ?></small>
                         </div>
+
                     </div>
                 <?php endforeach; ?>
             </div>
-        <?php endif; ?>
-        <div style="text-align:center; margin:20px;">
-            <form action="guardar_json.php" method="post" style="display:inline;">
-                <button type="submit">💾 Guardar datos</button>
-            </form>
-            <form action="cargar_json.php" method="post" style="display:inline;">
-                <button type="submit">📂 Cargar datos</button>
-            </form>
-        </div>
-
-        <?php if (isset($_GET['msg'])): ?>
-            <p style="text-align:center; color:green;">
-                <?php
-                switch ($_GET['msg']) {
-                    case 'guardado':
-                        echo "Datos guardados correctamente.";
-                        break;
-                    case 'cargado':
-                        echo "Datos cargados correctamente.";
-                        break;
-                    case 'sin_datos':
-                        echo "No había datos de sesión para guardar.";
-                        break;
-                    case 'error_json':
-                        echo "Error al leer el archivo JSON.";
-                        break;
-                    case 'no_archivo':
-                        echo "No existe el archivo de datos.";
-                        break;
-                }
-                ?>
-            </p>
         <?php endif; ?>
 
     </main>

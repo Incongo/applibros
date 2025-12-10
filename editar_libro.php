@@ -1,30 +1,52 @@
 <?php
-include 'header.php';
-if (!isset($_SESSION['usuario'])) {
+session_start();
+
+if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit();
 }
 
-$usuario = $_SESSION['usuario'];
-if (!isset($_SESSION['libros'][$usuario]))
-    $_SESSION['libros'][$usuario] = [];
-$libros = &$_SESSION['libros'][$usuario];
+require_once "config.php";
+require_once __DIR__ . "/includes/functions.php";
 
-$index = (int) ($_GET['index'] ?? -1);
-if (!isset($libros[$index])) {
+$usuario_id = $_SESSION['usuario_id'];
+
+// Obtener ID del libro desde la URL
+$libro_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+if ($libro_id <= 0) {
     header("Location: bienvenido.php");
     exit();
 }
 
+$conn = conectarBaseDatos();
+
+// Obtener datos del libro
+$sql = "SELECT * FROM libro WHERE libro_id = ? AND usuario_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ii", $libro_id, $usuario_id);
+$stmt->execute();
+$resultado = $stmt->get_result();
+
+if ($resultado->num_rows === 0) {
+    header("Location: bienvenido.php");
+    exit();
+}
+
+$libro = $resultado->fetch_assoc();
+
+// Función para guardar imagen
 function guardarImagen($campo, $carpeta = 'uploads')
 {
     if (empty($_FILES[$campo]['name']))
         return '';
+
     if (!is_dir($carpeta))
         mkdir($carpeta, 0777, true);
 
     $ext = strtolower(pathinfo($_FILES[$campo]['name'], PATHINFO_EXTENSION));
     $permitidas = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
     if (!in_array($ext, $permitidas))
         return '';
 
@@ -34,17 +56,35 @@ function guardarImagen($campo, $carpeta = 'uploads')
     if (move_uploaded_file($_FILES[$campo]['tmp_name'], $destino)) {
         return $destino;
     }
+
     return '';
 }
 
+// Procesar formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $libros[$index]['titulo'] = trim($_POST['titulo']);
-    $libros[$index]['sinopsis'] = trim($_POST['sinopsis']);
 
-    $nueva = guardarImagen('imagen');
-    if ($nueva !== '') {
-        $libros[$index]['imagen'] = $nueva;
+    $titulo = trim($_POST['titulo']);
+    $sinopsis = trim($_POST['sinopsis']);
+    $autor = trim($_POST['autor']);
+
+    // Imagen nueva (si se sube)
+    $nueva_imagen = guardarImagen('imagen');
+
+    if ($nueva_imagen !== '') {
+        $imagen_final = $nueva_imagen;
+    } else {
+        $imagen_final = $libro['imagen']; // mantener la anterior
     }
+
+    // Actualizar libro
+    $sql = "UPDATE libro 
+            SET titulo = ?, sinopsis = ?, autor = ?, imagen = ?
+            WHERE libro_id = ? AND usuario_id = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssii", $titulo, $sinopsis, $autor, $imagen_final, $libro_id, $usuario_id);
+    $stmt->execute();
+
     header("Location: bienvenido.php");
     exit();
 }
@@ -60,23 +100,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <?php include 'header.php'; ?>
     <main>
         <div class="form-container">
             <div class="card form-card">
                 <h1>Editar libro</h1>
+
                 <form method="post" enctype="multipart/form-data">
+
                     <label for="titulo">Título:</label>
                     <input type="text" id="titulo" name="titulo"
-                        value="<?php echo htmlspecialchars($libros[$index]['titulo']); ?>" required>
+                        value="<?php echo htmlspecialchars($libro['titulo']); ?>" required>
+
+                    <label for="autor">Autor:</label>
+                    <input type="text" id="autor" name="autor"
+                        value="<?php echo htmlspecialchars($libro['autor']); ?>" required>
 
                     <label for="sinopsis">Sinopsis:</label>
-                    <textarea id="sinopsis" name="sinopsis"
-                        required><?php echo htmlspecialchars($libros[$index]['sinopsis']); ?></textarea>
+                    <textarea id="sinopsis" name="sinopsis" required><?php
+                                                                        echo htmlspecialchars($libro['sinopsis']); ?></textarea>
 
-                    <?php if (!empty($libros[$index]['imagen']) && file_exists($libros[$index]['imagen'])): ?>
+                    <?php if (!empty($libro['imagen']) && file_exists($libro['imagen'])): ?>
                         <p>Imagen actual:</p>
-                        <img src="<?php echo htmlspecialchars($libros[$index]['imagen']); ?>" class="img-libro"
-                            alt="Portada">
+                        <img src="<?php echo htmlspecialchars($libro['imagen']); ?>" class="img-libro" alt="Portada">
                     <?php endif; ?>
 
                     <label for="imagen">Nueva imagen (opcional):</label>
@@ -84,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <button type="submit">Guardar cambios</button>
                 </form>
+
                 <p style="text-align:center; margin-top:10px;">
                     <a href="bienvenido.php">Volver</a>
                 </p>
